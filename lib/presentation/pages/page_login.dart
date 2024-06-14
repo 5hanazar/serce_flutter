@@ -5,7 +5,7 @@ import 'package:serce/domain/repository.dart';
 import 'package:serce/presentation/pages/page_rooms.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
   @override
   State<LoginPage> createState() => _LoginPageState();
 }

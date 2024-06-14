@@ -10,7 +10,7 @@ import 'package:serce/resources/data_state.dart';
 class RoomPage extends StatefulWidget {
   final int roomId;
 
-  const RoomPage({Key? key, required this.roomId}) : super(key: key);
+  const RoomPage({super.key, required this.roomId});
 
   @override
   State<RoomPage> createState() => _RoomPageState();

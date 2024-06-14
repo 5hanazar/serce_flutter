@@ -7,7 +7,7 @@ import 'package:serce/resources/controller_rooms.dart';
 import 'package:serce/resources/data_state.dart';
 
 class RoomsPage extends StatefulWidget {
-  const RoomsPage({Key? key}) : super(key: key);
+  const RoomsPage({super.key});
 
   @override
   State<RoomsPage> createState() => _RoomsPageState();
