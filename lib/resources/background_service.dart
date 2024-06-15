@@ -25,9 +25,9 @@ class BackgroundService {
             initialNotificationContent: "Feel free to hide this notification on app settings."),
         iosConfiguration: IosConfiguration());
   }
-  static void launch() {
+  static void reLaunch() {
+    if (!_mqttService.isConnected()) _service.invoke("connectMqtt");
     _service.startService();
-    _connectMqtt();
   }
   static void stop() {
     _service.invoke("stopIt");
@@ -36,7 +36,7 @@ class BackgroundService {
     _service.on("sendToUI").listen(onData);
   }
 
-  static void _connectMqtt() async {
+  static void _connectMqtt(ServiceInstance service) async {
     if (_mqttService.isConnected()) return;
     final prefs = await SharedPreferences.getInstance();
     final api = SerceApi(prefs: prefs);
@@ -50,17 +50,20 @@ class BackgroundService {
     }
     _mqttService.connect(clientId, (topic, message) {
       _localNotificationService.showNotificationAndroid(topic, message, "88", "Serçe Messages", 18);
-      _service.invoke('sendToUI', null);
+      service.invoke('sendToUI', null);
     });
   }
   static void _onStart(ServiceInstance service) {
     service.on('stopIt').listen((event) {
       service.stopSelf();
     });
+    service.on('connectMqtt').listen((event) {
+      _connectMqtt(service);
+    });
     Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
       if (result.contains(ConnectivityResult.mobile) || result.contains(ConnectivityResult.wifi)) {
-        print("onConnectivityChanged");
-        _connectMqtt();
+        print("Connectivity changed");
+        _connectMqtt(service);
       }
     });
   }

@@ -19,7 +19,7 @@ class _RoomsPageState extends State<RoomsPage> {
   @override
   void initState() {
     super.initState();
-    BackgroundService.launch();
+    BackgroundService.reLaunch();
     controller.refreshRooms();
     BackgroundService.listenUI((event) {
       controller.refreshRooms();
@@ -63,7 +63,7 @@ class RoomsList extends StatelessWidget {
       itemCount: dataState.value!.result.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
-          title: Text("Room ${dataState.value!.result[index].id} - ${dataState.value!.result[index].createdDate}"),
+          title: Text("Room ${dataState.value!.result[index].id} - ${dataState.value!.result[index].lastMessage ?? ""}"),
           onTap: () {
             Get.to(() => RoomPage(roomId: dataState.value!.result[index].id), preventDuplicates: false);
           },

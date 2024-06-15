@@ -57,9 +57,10 @@ class RoomDtoView {
   ClientDtoView? adminClient;
   List<ClientDtoView> clients;
   List<MessageDtoView> messages;
+  String? lastMessage;
   String createdDate;
 
-  RoomDtoView({required this.id, required this.adminClient, required this.clients, required this.messages, required this.createdDate});
+  RoomDtoView({required this.id, required this.adminClient, required this.clients, required this.messages, required this.lastMessage, required this.createdDate});
 
   factory RoomDtoView.fromJson(Map<String, dynamic> json) {
     ClientDtoView? client;
@@ -81,7 +82,7 @@ class RoomDtoView {
       });
     }
 
-    return RoomDtoView(id: json['id'], adminClient: client, clients: clients, messages: messages, createdDate: json['createdDate']);
+    return RoomDtoView(id: json['id'], adminClient: client, clients: clients, messages: messages, lastMessage: json['lastMessage'], createdDate: json['createdDate']);
   }
 }
 
