@@ -59,14 +59,37 @@ class RoomsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (dataState.value == null) return const Text("");
+    final data = dataState.value!;
     return ListView.builder(
-      itemCount: dataState.value!.result.length,
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 0),
+      itemCount: data.result.length,
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          title: Text("Room ${dataState.value!.result[index].id} - ${dataState.value!.result[index].lastMessage ?? ""}"),
+        final roomTitle = data.result[index].clients.firstWhereOrNull((el) => el.id != data.user.id)?.name ?? "";
+        return GestureDetector(
           onTap: () {
-            Get.to(() => RoomPage(roomId: dataState.value!.result[index].id), preventDuplicates: false);
+            Get.to(() => RoomPage(roomId: data.result[index].id, roomTitle: roomTitle), preventDuplicates: false);
           },
+          child: Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+            child: Row(
+              children: <Widget>[
+                const CircleAvatar(
+                  maxRadius: 30,
+                ),
+                const SizedBox(width: 16,),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(roomTitle, style: const TextStyle(fontSize: 16),),
+                      Text(data.result[index].lastMessage ?? "",style: TextStyle(fontSize: 13,color: Colors.grey.shade600)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );

@@ -3,10 +3,12 @@ import 'package:serce/data/repository.dart';
 import 'package:serce/domain/repository.dart';
 import 'package:serce/presentation/pages/page_login.dart';
 import 'package:serce/resources/background_service.dart';
+import 'package:serce/resources/controller_rooms.dart';
 import 'package:serce/resources/data_state.dart';
 
 class RoomController extends GetxController {
   final RepositoryImpl _repo = Get.find();
+  final RoomsController controller = Get.find();
   MyState<MessagesDto> dataState = MyState.loading(null);
 
   Future<void> refreshRoom(int roomId) async {
@@ -29,7 +31,10 @@ class RoomController extends GetxController {
 
   void send(int roomId, String description) async {
     final r = await _repo.postMessage(roomId, PostMessageDto(description: description));
-    if (r is MySuccessState) refreshRoom(roomId);
+    if (r is MySuccessState) {
+      refreshRoom(roomId);
+      controller.refreshRooms();
+    }
   }
 
   void clear()  {

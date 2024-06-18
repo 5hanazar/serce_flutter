@@ -9,8 +9,9 @@ import 'package:serce/resources/data_state.dart';
 
 class RoomPage extends StatefulWidget {
   final int roomId;
+  final String roomTitle;
 
-  const RoomPage({super.key, required this.roomId});
+  const RoomPage({super.key, required this.roomId, required this.roomTitle});
 
   @override
   State<RoomPage> createState() => _RoomPageState();
@@ -43,7 +44,7 @@ class _RoomPageState extends State<RoomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Room ${widget.roomId}"), leading: const BackButton()),
+        appBar: AppBar(title: Text(widget.roomTitle), leading: const BackButton()),
         body: Column(children: [
           Expanded(
             child: GetBuilder<RoomController>(builder: (controller) {
