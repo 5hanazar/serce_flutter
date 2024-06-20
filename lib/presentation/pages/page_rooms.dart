@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serce/domain/repository.dart';
+import 'package:serce/presentation/pages/page_add_contact.dart';
 import 'package:serce/presentation/pages/page_room.dart';
 import 'package:serce/resources/background_service.dart';
 import 'package:serce/resources/controller_rooms.dart';
@@ -31,11 +32,23 @@ class _RoomsPageState extends State<RoomsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text("Serçe"),
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 8, top: 8, right: 0, bottom: 6),
-              child: Image.asset('assets/ic_launcher.png'),
-            )),
+          title: const Text("Serçe"),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 8, top: 8, right: 0, bottom: 6),
+            child: Image.asset('assets/ic_launcher.png'),
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.add
+              ),
+              onPressed: () async {
+                final r = await Get.to(() => const AddContactPage(), preventDuplicates: false);
+                if (r == 1) controller.refreshRooms();
+              },
+            )
+          ],
+        ),
         backgroundColor: Colors.white,
         body: GetBuilder<RoomsController>(builder: (controller) {
           //if (controller.dataState.value == null) return Center(child: IconButton(onPressed: _doRefresh, icon: const Icon(Icons.refresh)));
@@ -77,13 +90,13 @@ class RoomsList extends StatelessWidget {
                 const CircleAvatar(
                   maxRadius: 30,
                 ),
-                const SizedBox(width: 16,),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(roomTitle, style: const TextStyle(fontSize: 16),),
-                      Text(data.result[index].lastMessage ?? "",style: TextStyle(fontSize: 13,color: Colors.grey.shade600)),
+                      Text(roomTitle, style: const TextStyle(fontSize: 16)),
+                      Text(data.result[index].lastMessage ?? "", style: TextStyle(fontSize: 13, color: Colors.grey.shade600)),
                     ],
                   ),
                 ),

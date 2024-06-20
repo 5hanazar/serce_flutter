@@ -46,6 +46,16 @@ class SerceApi {
     throw Exception('${response.statusCode}');
   }
 
+  Future<int> postRoom(PostRoomDto dto) async {
+    final request = http.MultipartRequest('POST', Uri.parse('$baseURL/rooms'));
+    request.headers["Accept"] = "application/json";
+    request.headers["Cookie"] = prefs.getString("serce_user") ?? "";
+    request.fields['data'] = jsonEncode(dto);
+    final response = await request.send();
+    if (response.statusCode == 200) return 0;
+    throw Exception('${response.statusCode}');
+  }
+
   Future<int> postLogin(PostLoginDto dto) async {
     final response = await http.post(Uri.parse('$baseURL/login'),
         headers: {

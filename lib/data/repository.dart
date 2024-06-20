@@ -40,4 +40,14 @@ class RepositoryImpl implements Repository {
       return MyState.error(null, error.toString());
     }
   }
+
+  @override
+  Future<MyState<int>> postRoom(PostRoomDto dto) async {
+    try {
+      final result = await _api.postRoom(dto);
+      return MyState.success(result);
+    } on Exception catch (error, _) {
+      return MyState.error(null, error.toString());
+    }
+  }
 }

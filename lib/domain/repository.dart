@@ -5,6 +5,7 @@ abstract class Repository {
   Future<MessagesDto> getMessages(int roomId);
   Future<MyState<int>> postMessage(int roomId, PostMessageDto dto);
   Future<MyState<int>> postLogin(PostLoginDto dto);
+  Future<MyState<int>> postRoom(PostRoomDto dto);
 }
 
 class RoomsDto {
@@ -105,6 +106,12 @@ class PostMessageDto {
   String description;
   PostMessageDto({required this.description});
   Map<String, dynamic> toJson() => {'description': description};
+}
+
+class PostRoomDto {
+  String phone;
+  PostRoomDto({required this.phone});
+  Map<String, dynamic> toJson() => {'phone': phone};
 }
 
 class PostLoginDto {
