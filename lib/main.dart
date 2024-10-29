@@ -1,39 +1,76 @@
-import 'package:serce/data/data_sources/api_serce.dart';
-import 'package:serce/data/repository.dart';
-import 'package:serce/presentation/pages/page_rooms.dart';
-import 'package:serce/resources/background_service.dart';
-import 'package:serce/resources/common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:get/get.dart';
-import 'package:serce/resources/controller_room.dart';
-import 'package:serce/resources/controller_rooms.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:serce/screen/chat_list.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  /*final localNotificationService = LocalNotificationService("77", "Serçe Channel", 17, FlutterLocalNotificationsPlugin());
-  await localNotificationService.init();
-  localNotificationService.showNotificationAndroid("topic", "message");*/
-  await BackgroundService.init();
-  final prefs = await SharedPreferences.getInstance();
-  runApp(MyApp(prefs: prefs));
+import 'constants/colors.dart';
+
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final SharedPreferences prefs;
-
-  const MyApp({super.key, required this.prefs});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        defaultTransition: Transition.noTransition,
-        theme: ThemeData(primarySwatch: mainColor, scaffoldBackgroundColor: Colors.grey.shade200, appBarTheme: const AppBarTheme(backgroundColor: Colors.white, foregroundColor: Colors.black, elevation: 1)),
-        home: const RoomsPage(),
-        initialBinding: BindingsBuilder(() {
-          Get.put(RepositoryImpl(SerceApi(prefs: prefs), prefs));
-          Get.put(RoomsController());
-          Get.put(RoomController());
-        }));
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: myprimary,
+          primary: myprimary,
+          secondary: mysecondary,
+          onPrimary: mysecondary,
+          brightness: Brightness.light,
+          onSurface: mysecondary,
+        ),
+
+        // Divider indent isnt dynamic
+        dividerTheme: DividerThemeData(
+          space: 5,
+          color: mydividerPrimary,
+          thickness: 0.5,
+          indent: 80,
+        ),
+        iconTheme: IconThemeData(color: Colors.grey.shade600),
+        textTheme: TextTheme(
+          titleSmall:
+              TextStyle(color: mysubTitlePrimary, fontSize: titleSmallFontSize),
+          titleMedium:
+              TextStyle(color: mytextPrimary, fontSize: titleMediumFontSize),
+          titleLarge: TextStyle(
+              color: mytitleLargePrimary,
+              fontSize: titleLargeFontSize,
+              fontWeight: FontWeight.bold),
+          labelSmall: TextStyle(
+              color: mynotificationCountPrimary,
+              fontSize: labelSmallFontSize,
+              fontWeight: FontWeight.bold),
+          labelMedium: TextStyle(
+              color: mysearchInputPrimary, fontSize: labelMediumFontSize),
+          displaySmall: TextStyle(
+              color: mydateInTrailingPrimary,
+              fontSize: displaySmallFontSize,
+              fontWeight: FontWeight.bold),
+        ),
+        scaffoldBackgroundColor: myprimary,
+        tabBarTheme: TabBarTheme(
+          indicatorSize: TabBarIndicatorSize.label,
+          indicator: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          tabAlignment: TabAlignment.start,
+          labelColor: mytabbarSelectedPrimary,
+          unselectedLabelColor: mytabbarUnselectedPrimary,
+        ),
+        appBarTheme: AppBarTheme(
+            backgroundColor: mysecondary,
+            iconTheme: IconThemeData(color: secondary)),
+        drawerTheme: DrawerThemeData(),
+        useMaterial3: true,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: MyChatList(),
+    );
   }
 }
