@@ -1,99 +1,141 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class MyAppBarWithScroll extends StatefulWidget {
-  @override
-  _MyAppBarWithScrollState createState() => _MyAppBarWithScrollState();
+class FMenuController extends GetxController {
+  // Статус меню, по умолчанию - главное меню
+  var currentMenu = 'main'.obs;
+  var isMenuOpen = false.obs;
+
+  // Переключение между основным и подменю
+  void switchMenu(String menu) {
+    currentMenu.value = menu;
+  }
+
+  // Закрытие меню и возврат к главному
+  void closeMenu() {
+    currentMenu.value = 'main';
+    isMenuOpen.value = false;
+  }
+
+  // Открытие меню
+  void openMenu() {
+    isMenuOpen.value = true;
+  }
 }
 
-class _MyAppBarWithScrollState extends State<MyAppBarWithScroll> {
-  final ScrollController _scrollController = ScrollController();
-  double _circleSize = 30; // Начальный размер кружочков
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(() {
-      setState(() {
-        // Изменяем размер кружочков в зависимости от прокрутки
-        _circleSize = 30 + (_scrollController.offset / 10).clamp(0, 50);
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+class HomeScreen1 extends StatelessWidget {
+  final FMenuController menuController = Get.put(FMenuController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CustomScrollView AppBar'),
+        title: Text('Dynamic Top Right Menu'),
         actions: [
-          Row(
-            children: [
-              AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                height: _circleSize,
-                width: _circleSize,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: Text('A', style: TextStyle(color: Colors.white)),
-              ),
-              SizedBox(width: 8),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                height: _circleSize,
-                width: _circleSize,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: Text('B', style: TextStyle(color: Colors.white)),
-              ),
-              SizedBox(width: 8),
-              AnimatedContainer(
-                duration: Duration(milliseconds: 300),
-                height: _circleSize,
-                width: _circleSize,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                ),
-                alignment: Alignment.center,
-                child: Text('C', style: TextStyle(color: Colors.white)),
-              ),
-            ],
+          IconButton(
+            icon: Icon(Icons.more_vert),
+            onPressed: () {
+              if (menuController.isMenuOpen.value) {
+                menuController.closeMenu();
+              } else {
+                menuController.openMenu();
+              }
+            },
           ),
         ],
       ),
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          SliverToBoxAdapter(
-            child: Container(
-              height: 800, // Увеличенная высота для демонстрации прокрутки
-              color: Colors.grey[200],
-              child: ListView.builder(
-                itemCount: 20, // Количество элементов
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('Item $index'),
-                    leading: Icon(Icons.star),
-                  );
-                },
+      body: Stack(
+        children: [
+          Center(child: Text('Main Screen')),
+          Obx(() {
+            // Проверяем статус меню для отображения
+            if (!menuController.isMenuOpen.value) return SizedBox.shrink();
+
+            return Positioned(
+              right: 16,
+              top: 56,
+              child: Material(
+                elevation: 8,
+                child: Container(
+                  width: 200,
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: menuController.currentMenu.value == 'main'
+                        ? [
+                            ListTile(
+                              title: Text('Notifications'),
+                              onTap: () {
+                                menuController.switchMenu('notifications');
+                              },
+                            ),
+                            ListTile(
+                              title: Text('Settings'),
+                              onTap: () {
+                                menuController.switchMenu('settings');
+                              },
+                            ),
+                          ]
+                        : menuController.currentMenu.value == 'notifications'
+                            ? [
+                                ListTile(
+                                  title: Text('Back to Main Menu'),
+                                  onTap: () {
+                                    menuController.switchMenu('main');
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text('Notification 1'),
+                                  onTap: () {
+                                    // Действие для уведомления 1
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text('Notification 2'),
+                                  onTap: () {
+                                    // Действие для уведомления 2
+                                  },
+                                ),
+                              ]
+                            : [
+                                ListTile(
+                                  title: Text('Back to Main Menu'),
+                                  onTap: () {
+                                    menuController.switchMenu('main');
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text('Setting 1'),
+                                  onTap: () {
+                                    // Действие для настройки 1
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text('Setting 2'),
+                                  onTap: () {
+                                    // Действие для настройки 2
+                                  },
+                                ),
+                              ],
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+          }),
+          // Добавляем GestureDetector для закрытия меню при касании вне его
+          Obx(() {
+            if (!menuController.isMenuOpen.value) return SizedBox.shrink();
+            return Positioned.fill(
+              child: GestureDetector(
+                onTap: () {
+                  menuController.closeMenu();
+                },
+                behavior: HitTestBehavior.translucent,
+              ),
+            );
+          }),
         ],
       ),
     );
   }
 }
-

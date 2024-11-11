@@ -15,7 +15,7 @@ class MySearchDownload extends StatelessWidget {
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: 30),
           child: Container(
-            color: myrecentChatsContainerPrimary,
+            color: myRecentChatsContainerPrimary,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -90,7 +90,7 @@ class MySearchDownload extends StatelessWidget {
                                             Icon(
                                               Icons.download,
                                               size: 14,
-                                              color: mysecondary,
+                                              color: mySecondary,
                                             ),
                                             Text(
                                               '24 MB',

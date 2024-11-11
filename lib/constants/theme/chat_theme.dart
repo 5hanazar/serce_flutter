@@ -12,17 +12,18 @@ class MyCustomChatTheme extends ChatTheme {
 
   MyCustomChatTheme()
       : super(
+      
           attachmentButtonIcon: Icon(Icons.attachment, color: Colors.grey),
           attachmentButtonMargin: EdgeInsets.all(8),
-          backgroundColor: Colors.white,
+          backgroundColor: myBackground,
           dateDividerMargin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           dateDividerTextStyle: TextStyle(color: Colors.grey, fontSize: 12),
           deliveredIcon: Icon(Icons.done, color: Colors.green),
           documentIcon: Icon(Icons.insert_drive_file, color: Colors.blue),
-          emptyChatPlaceholderTextStyle: TextStyle(color: mytextPrimary, fontSize: titleMediumFontSize),
+          emptyChatPlaceholderTextStyle: TextStyle(color: myTextPrimary, fontSize: titleMediumFontSize),
           errorColor: Colors.red,
           errorIcon: Icon(Icons.error, color: Colors.red),
-          inputBackgroundColor: Colors.grey,
+          inputBackgroundColor: Colors.white,
           inputSurfaceTintColor: Colors.grey[100]!,
           inputElevation: 2.0,
           inputBorderRadius: BorderRadius.circular(0),
@@ -60,7 +61,7 @@ class MyCustomChatTheme extends ChatTheme {
           statusIconPadding: EdgeInsets.all(4),
           systemMessageTheme: SystemMessageTheme(
           margin: EdgeInsets.all(5),
-            textStyle: TextStyle(color: Colors.black),
+            textStyle: TextStyle(color: Colors.white),
           ),
           typingIndicatorTheme: TypingIndicatorTheme(
             multipleUserTextStyle: TextStyle(fontSize: 20),

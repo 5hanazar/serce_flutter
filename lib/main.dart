@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:get/get.dart';
+import 'package:serce/Tests/chats_tapbar1.dart';
+import 'package:serce/Tests/gpt.dart';
+import 'package:serce/Tests/test1.dart';
+import 'package:serce/Tests/test_tile.dart';
 import 'package:serce/screen/chat_list.dart';
 
 import 'constants/colors.dart';
@@ -17,54 +21,58 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: myprimary,
-          primary: myprimary,
-          secondary: mysecondary,
-          onPrimary: mysecondary,
+          seedColor: myPrimary,
+          primary: myPrimary,
+          secondary: mySecondary,
+          onPrimary: mySecondary,
           brightness: Brightness.light,
-          onSurface: mysecondary,
+          onSurface: mySecondary,
         ),
 
         // Divider indent isnt dynamic
         dividerTheme: DividerThemeData(
           space: 5,
-          color: mydividerPrimary,
+          color: myDividerPrimary,
           thickness: 0.5,
           indent: 80,
         ),
-        iconTheme: IconThemeData(color: Colors.grey.shade600),
+        iconTheme: IconThemeData(color: myIcons),
         textTheme: TextTheme(
-          titleSmall:
-              TextStyle(color: mysubTitlePrimary, fontSize: titleSmallFontSize),
-          titleMedium:
-              TextStyle(color: mytextPrimary, fontSize: titleMediumFontSize),
-          titleLarge: TextStyle(
-              color: mytitleLargePrimary,
-              fontSize: titleLargeFontSize,
-              fontWeight: FontWeight.bold),
-          labelSmall: TextStyle(
-              color: mynotificationCountPrimary,
-              fontSize: labelSmallFontSize,
-              fontWeight: FontWeight.bold),
-          labelMedium: TextStyle(
-              color: mysearchInputPrimary, fontSize: labelMediumFontSize),
-          displaySmall: TextStyle(
-              color: mydateInTrailingPrimary,
+            titleSmall: TextStyle(
+                color: mySubTitlePrimary, fontSize: titleSmallFontSize),
+            titleMedium:
+                TextStyle(color: myTextPrimary, fontSize: titleMediumFontSize),
+            titleLarge: TextStyle(
+                color: myTitleLargePrimary,
+                fontSize: titleLargeFontSize,
+                fontWeight: FontWeight.w400),
+            labelSmall: TextStyle(
+                color: myNotificationCountPrimary,
+                fontSize: labelSmallFontSize,
+                fontWeight: FontWeight.bold),
+            labelMedium: TextStyle(
+                color: mySearchInputPrimary, fontSize: labelMediumFontSize),
+            labelLarge:
+                TextStyle(color: myAppbarLabel, fontSize: labelLargeFontSize),
+            displaySmall: TextStyle(
+              color: myDateInTrailingPrimary,
               fontSize: displaySmallFontSize,
-              fontWeight: FontWeight.bold),
-        ),
-        scaffoldBackgroundColor: myprimary,
+              fontWeight: FontWeight.bold,
+            ),
+            displayMedium:
+                TextStyle(color: myAppbarLabel, fontSize: labelMediumFontSize)),
+        scaffoldBackgroundColor: myPrimary,
         tabBarTheme: TabBarTheme(
           indicatorSize: TabBarIndicatorSize.label,
           indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
           ),
           tabAlignment: TabAlignment.start,
-          labelColor: mytabbarSelectedPrimary,
-          unselectedLabelColor: mytabbarUnselectedPrimary,
+          labelColor: myTabbarSelectedPrimary,
+          unselectedLabelColor: myTabbarUnselectedPrimary,
         ),
         appBarTheme: AppBarTheme(
-            backgroundColor: mysecondary,
+            backgroundColor: mySecondary,
             iconTheme: IconThemeData(color: secondary)),
         drawerTheme: DrawerThemeData(),
         useMaterial3: true,

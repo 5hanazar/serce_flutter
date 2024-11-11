@@ -10,15 +10,16 @@ class MySearchInput extends StatelessWidget {
     final TextStyle? inputLabel = Theme.of(context).textTheme.labelMedium;
     return Container(
         margin: EdgeInsets.all(5),
+
         child: TextField(
-          style: TextStyle(color: mysearchinputtext),
+          style: TextStyle(color: mySearchInputText),
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: 'Search...',
-            fillColor: myprimary,
+            fillColor: myPrimary,
             hintStyle: inputLabel,
             suffixIcon: IconButton(
-              color: mysearchappbaricon,
+              color: mySearchAppbarIcon,
               icon: Icon(Icons.close),
               onPressed: () {
           

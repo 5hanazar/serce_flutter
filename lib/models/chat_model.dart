@@ -20,6 +20,7 @@ class DTO {
   ];
   static final List<types.Message> chatHistoryRoom = [
   types.TextMessage(
+  
     author: user1,  
     id: '1',
     text: 'Привет, как дела?',

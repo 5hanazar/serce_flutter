@@ -20,6 +20,10 @@ import '../models/chat_model.dart';
 
 class MyCustomInputController extends GetxController {
   final textController = TextEditingController().obs;
+  final systemMessage = types.SystemMessage(
+    id: 'unique_id',
+    text: 'Пользователь присоединился к чату',
+  );
   var messages = <types.Message>[].obs;
 
   String randomString() {
@@ -30,7 +34,6 @@ class MyCustomInputController extends GetxController {
 
   void addMessage(types.Message message) {
     messages.insert(0, message);
-    
   }
 
   void handleSendPressed(types.PartialText message) {
@@ -49,7 +52,7 @@ class MyCustomInputController extends GetxController {
       textController.value.clear();
       // onSend(partialText);
       handleSendPressed(partialText);
-      
+      isSendButtonVisible.value = false;
     }
   }
 
@@ -57,5 +60,22 @@ class MyCustomInputController extends GetxController {
   void onClose() {
     textController.value.dispose();
     super.onClose();
+  }
+
+  // Переменная для отслеживания видимости кнопки отправки
+  final isSendButtonVisible = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    // Добавляем слушатель для текстового контроллера
+    textController.value.addListener(() {
+      isSendButtonVisible.value = textController.value.text.isNotEmpty;
+    });
+  }
+
+  void handleFileSelection() {
+    // Логика для выбора файла
+    print("Открыть выбор файла");
   }
 }

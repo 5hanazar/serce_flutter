@@ -23,9 +23,9 @@ class MyAppbarSearch extends StatelessWidget {
         length: 7,
         child: Scaffold(
           appBar: AppBar(
-            iconTheme: IconThemeData(color: mysearchappbaricon),
+            iconTheme: IconThemeData(color: mySearchAppbarIcon),
             automaticallyImplyLeading: false,
-            backgroundColor: mysearchappbarprimary,
+            backgroundColor: mySearchAppbarPrimary,
             actions: [
               Flexible(
                 child: Row(
@@ -45,14 +45,14 @@ class MyAppbarSearch extends StatelessWidget {
             bottom: PreferredSize(
               preferredSize: Size(150, 30),
               child: TabBar(
-                unselectedLabelColor: mytabbarUnselectedPrimary,
+                unselectedLabelColor: myTabbarUnselectedPrimary,
                 indicatorSize: TabBarIndicatorSize.label,
-                labelColor: mysearchappbaraccent,
+                labelColor: mySearchAppbarAccent,
                 indicator: BoxDecoration(
                   color: Colors.transparent,
                   border: Border(
                     bottom: BorderSide(
-                        color: mysecondary, width: 2.0), // Цвет нижней линии
+                        color: mySecondary, width: 2.0), // Цвет нижней линии
                   ),
                 ),
                 isScrollable: true,

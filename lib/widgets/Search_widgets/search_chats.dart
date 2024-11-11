@@ -14,6 +14,9 @@ class MySearchList extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextStyle? titleMedium = Theme.of(context).textTheme.titleMedium;
     final TextStyle? titleSmall = Theme.of(context).textTheme.titleSmall;
+
+    final TextStyle? displaySmall = Theme.of(context).textTheme.displaySmall;
+    final TextStyle? titleLarge = Theme.of(context).textTheme.titleLarge;
     return Column(
       children: [
         // First Listview
@@ -56,7 +59,7 @@ class MySearchList extends StatelessWidget {
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: 30),
           child: Container(
-            color: myrecentChatsContainerPrimary,
+            color: myRecentChatsContainerPrimary,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -93,12 +96,6 @@ class MySearchList extends StatelessWidget {
             },
             itemCount: 12,
             itemBuilder: (context, index) {
-              final TextStyle? titleSmall =
-                  Theme.of(context).textTheme.titleSmall;
-              final TextStyle? displaySmall =
-                  Theme.of(context).textTheme.displaySmall;
-              final TextStyle? titleLarge =
-                  Theme.of(context).textTheme.titleLarge;
               return Column(
                 children: [
                   // On tap to chat
@@ -151,7 +148,7 @@ class MySearchList extends StatelessWidget {
                                 children: [
                                   Icon(
                                     Icons.check,
-                                    color: checkIconPrimary,
+                                    color: myCheckIconPrimary,
                                     size: 12,
                                   ),
                                   Text(
@@ -171,7 +168,7 @@ class MySearchList extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color:
-                                        mynotificationCountEnabledContainerPrimary),
+                                        myNotificationCountEnabledContainerPrimary),
                                 child: Center(
                                     child: Text(
                                   '300',
