@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import '../models/chat_model.dart';
@@ -31,16 +29,16 @@ class ChatController extends GetxController {
     messages.insert(0, message);
   }
 
-  void shandlePreviewDataFetched(
-    types.TextMessage message,
-    types.PreviewData previewData,
-  ) {
-    final index = messages.indexWhere((element) => element.id == message.id);
-    final updatedMessage = (messages[index] as types.TextMessage).copyWith(
-      previewData: previewData,
-    );
-    messages[index] = updatedMessage;
-  }
+  // void shandlePreviewDataFetched(
+  //   types.TextMessage message,
+  //   types.PreviewData previewData,
+  // ) {
+  //   final index = messages.indexWhere((element) => element.id == message.id);
+  //   final updatedMessage = (messages[index] as types.TextMessage).copyWith(
+  //     previewData: previewData,
+  //   );
+  //   messages[index] = updatedMessage;
+  // }
 
   void handleSendPressed(types.PartialText message) {
     final textMessage = types.TextMessage(
@@ -52,4 +50,6 @@ class ChatController extends GetxController {
 
     addMessage(textMessage);
   }
+
+
 }

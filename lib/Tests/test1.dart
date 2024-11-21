@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:serce/Tests/custom_list_tile.dart';
 import 'package:serce/constants/colors.dart';
-
+import 'package:open_filex/open_filex.dart';
 // class MyMenuController extends GetxController {
 //   var currentMenu = 'main'.obs;
 //   var isMenuVisible = false.obs;
@@ -154,3 +157,59 @@ import 'package:serce/constants/colors.dart';
 //     );
 //   }
 // }
+
+class MyImagePickerController extends GetxController {
+  final selectedImagePath = ''.obs;
+  final selectedImageSize = ''.obs;
+
+  void selectImage(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedImagePath.value = pickedFile.path;
+      selectedImageSize.value =
+          '${(File(selectedImagePath.value).lengthSync() / 1024 / 1024).toStringAsFixed(2)}Mb';
+    } else {
+      selectedImagePath.value='';
+    }
+  }
+}
+
+class MyImagePicker extends StatelessWidget {
+  MyImagePicker({super.key});
+  final MyImagePickerController imagePickerController =
+      Get.put(MyImagePickerController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Expanded(
+        child: Column(
+          children: [
+            Obx(() => imagePickerController.selectedImagePath.value == ''
+                ? Text('Please select image', style: TextStyle(color: Colors.black),)
+                : Image.file(File(imagePickerController.selectedImagePath.value))),
+            TextButton(
+              onPressed: () {
+                imagePickerController.selectImage(ImageSource.camera);
+              },
+              child: Text(
+                'Camera',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                imagePickerController.selectImage(ImageSource.gallery);
+              },
+              child: Text(
+                'Gallery',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

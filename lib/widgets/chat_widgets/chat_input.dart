@@ -35,7 +35,7 @@ class MyCustomInput extends StatelessWidget {
                 )
               : IconButton(
                   icon: Icon(Icons.attach_file, color: myIcons),
-                  onPressed: inputC.handleFileSelection,
+                  onPressed: inputC.handleImageSelection,
                 )),
           border: InputBorder.none,
           hintText: 'Message',
@@ -46,3 +46,5 @@ class MyCustomInput extends StatelessWidget {
     );
   }
 }
+
+

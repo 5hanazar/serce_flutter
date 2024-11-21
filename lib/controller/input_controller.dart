@@ -4,8 +4,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:image_picker/image_picker.dart';
 
 import '../models/chat_model.dart';
+import '../widgets/chat_widgets/message_widgets/file_message_widget.dart';
+import '../widgets/chat_widgets/message_widgets/image_message_widget.dart';
+import '../widgets/chat_widgets/message_widgets/text_message_widget.dart';
+import '../widgets/chat_widgets/message_widgets/video_message_widget.dart';
 
 // class MyCustomInputController extends GetxController {
 //   var messageText = ''.obs;
@@ -78,4 +83,48 @@ class MyCustomInputController extends GetxController {
     // Логика для выбора файла
     print("Открыть выбор файла");
   }
+  void handleImageSelection() async {
+    final result = await ImagePicker().pickImage(
+      imageQuality: 70,
+      maxWidth: 1440,
+      source: ImageSource.gallery,
+    );
+
+    if (result != null) {
+      final bytes = await result.readAsBytes();
+      final image = await decodeImageFromList(bytes);
+
+      final message = types.ImageMessage(
+        author: DTO.user1,
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+        height: image.height.toDouble(),
+        id: randomString(),
+        name: result.name,
+        size: bytes.length,
+        uri: result.path,
+        width: image.width.toDouble(),
+      );
+
+      addMessage(message);
+    }
+  }
+  
+
+  Widget messageBuilder(types.Message message) {
+  if (message is types.TextMessage) {
+    return MyTextMessageWidget(message: message); // Для текстовых сообщений
+  } 
+  else if (message is types.ImageMessage) {
+    return MyImageMessageWidget(message: message); // Для изображений
+  } else if (message is types.AudioMessage) {
+    return MyAudioMessageWidget(message: message); // Для аудио
+  } else if (message is types.VideoMessage) {
+    return MyVideoMessageWidget(message: message); // Для видео
+  } else if (message is types.FileMessage) {
+    return MyFileMessageWidget(message: message); // Для файлов
+  }else{
+    return Container();
+  }
+}
+
 }

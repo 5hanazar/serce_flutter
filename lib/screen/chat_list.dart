@@ -5,7 +5,7 @@ import 'package:serce/widgets/chat_list_widgets/drawer.dart';
 
 import '../constants/colors.dart';
 import '../controller/chat_controller.dart';
-import '../controller/menu_controller.dart';
+import '../controller/tabbar_controller.dart';
 import '../widgets/appbar_search.dart';
 import '../widgets/chat_list_widgets/chat_list_items.dart';
 import '../widgets/chat_list_widgets/drawer_header.dart';
@@ -13,7 +13,7 @@ import '../widgets/chat_list_widgets/drawer_header.dart';
 class MyChatList extends StatelessWidget {
   MyChatList({super.key});
   final ChatController chatController = Get.put(ChatController());
-  final MyMenuController menuC = Get.put(MyMenuController());
+  final ChatTabBarController tabBarController = Get.put(ChatTabBarController());
   @override
   Widget build(BuildContext context) {
     final TextStyle? titleMedium = Theme.of(context).textTheme.titleMedium;
@@ -66,6 +66,9 @@ class MyChatList extends StatelessWidget {
             iconSize: 24,
           ),
         ],
+        // bottom: TabBar(
+        //     tabAlignment: TabAlignment.fill,
+        //     tabs: tabBarController.tabs.value),
       ),
       body: Column(
         children: [

@@ -38,6 +38,9 @@ dependencies:
 
   # Third party
   get: ^4.6.5
+  # json_annotation: ^6.0.1
+  meta: ^1.9.1
+  json_annotation: ^4.9.0
   shared_preferences: ^2.2.3
   http: ^1.2.1
   cached_network_image: ^3.2.3
@@ -52,13 +55,17 @@ dependencies:
   chat_message_timestamp: ^0.0.1
   bubble: ^1.2.1
   image_picker: ^1.1.2
+  flutter_image_compress: ^2.3.0
+  image_cropper: ^8.0.2
   open_filex: ^4.5.0
   file_picker: ^8.1.3
   path_provider: ^2.1.5
+  intl: ^0.18.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  build_runner: ^2.4.5
+  json_serializable: ^6.6.1
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

@@ -3,6 +3,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:get/get.dart';
 import 'package:serce/Tests/chats_tapbar1.dart';
 import 'package:serce/Tests/gpt.dart';
+import 'package:serce/Tests/tabbar_tes.dart';
 import 'package:serce/Tests/test1.dart';
 import 'package:serce/Tests/test_tile.dart';
 import 'package:serce/screen/chat_list.dart';
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
           indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
           ),
-          tabAlignment: TabAlignment.start,
+          // tabAlignment: TabAlignment.start,
           labelColor: myTabbarSelectedPrimary,
           unselectedLabelColor: myTabbarUnselectedPrimary,
         ),

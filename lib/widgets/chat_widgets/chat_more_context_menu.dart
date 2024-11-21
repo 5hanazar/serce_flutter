@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:serce/constants/colors.dart';
+import 'package:serce/widgets/chat_widgets/chat_more_context_menu_items.dart';
 
+import '../../controller/chat_search_controller.dart';
 import '../../controller/more_button_controller.dart';
 
-
+// Контекст меню не закрывается поэтому и нужно двойное нажатие чтобы закрыть поле ввода
 class MyMoreContextMenu extends StatelessWidget {
-  final MyMoreContextMenuController menuController = Get.put(MyMoreContextMenuController());
+  final MyMoreContextMenuController menuController =
+      Get.put(MyMoreContextMenuController());
+  // final MySearchController searchController = Get.put(MySearchController());
   final LayerLink _layerLink = LayerLink();
 
   MyMoreContextMenu({super.key});
@@ -19,6 +23,7 @@ class MyMoreContextMenu extends StatelessWidget {
 
     final TextStyle? displaySmall = Theme.of(context).textTheme.displaySmall;
     final TextStyle? titleLarge = Theme.of(context).textTheme.titleLarge;
+
     overlayEntry = OverlayEntry(
       builder: (context) {
         return GestureDetector(
@@ -72,15 +77,11 @@ class MyMoreContextMenu extends StatelessWidget {
                                     width: double.infinity,
                                     color: myMoreContextMenuContainer,
                                   ),
-                                  ListTile(
-                                    leading: Icon(Icons.video_call),
-                                    title: Text(
-                                      'Video call',
-                                      style: titleMedium,
-                                    ),
-                                    onTap: () {
-                                      // Действие для уведомления 1
-                                    },
+                                  ChatMoreContextMenuItems(
+                                    title: 'Vide call',
+                                    leading: Icons.video_call,
+                                    style: titleMedium,
+                                    onTap: () {},
                                   ),
                                   ListTile(
                                     leading: Icon(Icons.search),
@@ -90,6 +91,9 @@ class MyMoreContextMenu extends StatelessWidget {
                                     ),
                                     onTap: () {
                                       // Действие для уведомления 1
+                                      menuController.toggleSearch();
+                                      overlayEntry?.remove();
+                                      menuController.closeMenu();
                                     },
                                   ),
                                   ListTile(
