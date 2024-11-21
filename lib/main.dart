@@ -1,39 +1,85 @@
-import 'package:serce/data/data_sources/api_serce.dart';
-import 'package:serce/data/repository.dart';
-import 'package:serce/presentation/pages/page_rooms.dart';
-import 'package:serce/resources/background_service.dart';
-import 'package:serce/resources/common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:get/get.dart';
-import 'package:serce/resources/controller_room.dart';
-import 'package:serce/resources/controller_rooms.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:serce/Tests/chats_tapbar1.dart';
+import 'package:serce/Tests/gpt.dart';
+import 'package:serce/Tests/tabbar_tes.dart';
+import 'package:serce/Tests/test1.dart';
+import 'package:serce/Tests/test_tile.dart';
+import 'package:serce/screen/chat_list.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  /*final localNotificationService = LocalNotificationService("77", "Serçe Channel", 17, FlutterLocalNotificationsPlugin());
-  await localNotificationService.init();
-  localNotificationService.showNotificationAndroid("topic", "message");*/
-  await BackgroundService.init();
-  final prefs = await SharedPreferences.getInstance();
-  runApp(MyApp(prefs: prefs));
+import 'constants/colors.dart';
+
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final SharedPreferences prefs;
-
-  const MyApp({super.key, required this.prefs});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        defaultTransition: Transition.noTransition,
-        theme: ThemeData(primarySwatch: mainColor, scaffoldBackgroundColor: Colors.grey.shade200, appBarTheme: const AppBarTheme(backgroundColor: Colors.white, foregroundColor: Colors.black, elevation: 1)),
-        home: const RoomsPage(),
-        initialBinding: BindingsBuilder(() {
-          Get.put(RepositoryImpl(SerceApi(prefs: prefs), prefs));
-          Get.put(RoomsController());
-          Get.put(RoomController());
-        }));
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: myPrimary,
+          primary: myPrimary,
+          secondary: mySecondary,
+          onPrimary: mySecondary,
+          brightness: Brightness.light,
+          onSurface: mySecondary,
+        ),
+
+        // Divider indent isnt dynamic
+        dividerTheme: DividerThemeData(
+          space: 5,
+          color: myDividerPrimary,
+          thickness: 0.5,
+          indent: 80,
+        ),
+        iconTheme: IconThemeData(color: myIcons),
+        textTheme: TextTheme(
+            titleSmall: TextStyle(
+                color: mySubTitlePrimary, fontSize: titleSmallFontSize),
+            titleMedium:
+                TextStyle(color: myTextPrimary, fontSize: titleMediumFontSize),
+            titleLarge: TextStyle(
+                color: myTitleLargePrimary,
+                fontSize: titleLargeFontSize,
+                fontWeight: FontWeight.w400),
+            labelSmall: TextStyle(
+                color: myNotificationCountPrimary,
+                fontSize: labelSmallFontSize,
+                fontWeight: FontWeight.bold),
+            labelMedium: TextStyle(
+                color: mySearchInputPrimary, fontSize: labelMediumFontSize),
+            labelLarge:
+                TextStyle(color: myAppbarLabel, fontSize: labelLargeFontSize),
+            displaySmall: TextStyle(
+              color: myDateInTrailingPrimary,
+              fontSize: displaySmallFontSize,
+              fontWeight: FontWeight.bold,
+            ),
+            displayMedium:
+                TextStyle(color: myAppbarLabel, fontSize: labelMediumFontSize)),
+        scaffoldBackgroundColor: myPrimary,
+        tabBarTheme: TabBarTheme(
+          indicatorSize: TabBarIndicatorSize.label,
+          indicator: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          // tabAlignment: TabAlignment.start,
+          labelColor: myTabbarSelectedPrimary,
+          unselectedLabelColor: myTabbarUnselectedPrimary,
+        ),
+        appBarTheme: AppBarTheme(
+            backgroundColor: mySecondary,
+            iconTheme: IconThemeData(color: secondary)),
+        drawerTheme: DrawerThemeData(),
+        useMaterial3: true,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: MyChatList(),
+    );
   }
 }
